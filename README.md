@@ -3,7 +3,7 @@
     AI Doctor
   </h1>
   
-  <img src="./public/ai-doctor-banner.png" alt="AI Doctor Banner" width="800" style="border-radius: 12px; margin-top: 10px;" />
+  <img src="./banner.png" alt="AI Doctor Banner" width="800" style="border-radius: 12px; margin-top: 10px;" />
 </div>
 
 <br />
