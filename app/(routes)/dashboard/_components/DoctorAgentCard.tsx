@@ -92,15 +92,25 @@ function DoctorAgentCard({ doctorAgent }: Props) {
           className="w-full flex items-center justify-between px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-200"
           style={
             isLocked
-              ? { background: "rgba(0,0,0,0.06)", color: "#aaa", cursor: "not-allowed" }
+              ? {
+                  background: "rgba(0,0,0,0.06)",
+                  color: "#aaa",
+                  cursor: "not-allowed",
+                }
               : {
-                background: "#111",
-                color: "#fff",
-                boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.12)",
-              }
+                  background: "#111",
+                  color: "#fff",
+                  boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.12)",
+                }
           }
         >
-          <span>{loading ? "Starting…" : isLocked ? "Premium Only" : "Start Consultation"}</span>
+          <span>
+            {loading
+              ? "Starting…"
+              : isLocked
+                ? "Premium Only"
+                : "Start Consultation"}
+          </span>
           {!isLocked && (
             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           )}

@@ -63,12 +63,13 @@ const SkeletonTwo = () => {
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
             <div
               style={{ width: `${width}%` }}
-              className={`h-2 rounded-full ${width > 70
+              className={`h-2 rounded-full ${
+                width > 70
                   ? "bg-green-500"
                   : width > 50
                     ? "bg-yellow-500"
                     : "bg-gray-400"
-                }`}
+              }`}
             />
           </div>
         </div>
@@ -125,7 +126,8 @@ const SkeletonFive = () => {
 const items = [
   {
     title: "NLP Symptom Extraction",
-    description: "BioBERT extracts medical entities from natural language with 98% accuracy",
+    description:
+      "BioBERT extracts medical entities from natural language with 98% accuracy",
     header: <SkeletonOne />,
     className: "md:col-span-2",
     icon: <IconBrain className="h-4 w-4 text-purple-600" />,

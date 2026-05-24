@@ -10,7 +10,6 @@ const Dashboard = () => {
     <div className="w-full">
       {/* Page header */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-12">
-
         <AddNewSessionDialog />
       </div>
 

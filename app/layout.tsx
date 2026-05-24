@@ -19,7 +19,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "AI HEALTH CARE ASSISTANT",
-  description: "AI Health Care Assistant is a platform that provides AI-powered healthcare services to users. It provides a platform for users to connect with doctors, get medical advice, and access healthcare services.",
+  description:
+    "AI Health Care Assistant is a platform that provides AI-powered healthcare services to users. It provides a platform for users to connect with doctors, get medical advice, and access healthcare services.",
   icons: {
     icon: "/favicon.svg",
   },

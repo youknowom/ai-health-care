@@ -33,14 +33,19 @@ function AddNewSessionDialog() {
     }
     setLoading(true);
     try {
-      const { data } = await axios.post("/api/suggest-doctors", { notes: note });
+      const { data } = await axios.post("/api/suggest-doctors", {
+        notes: note,
+      });
       setSuggestedDoctors(data.message);
       toast.success("Doctor suggestions loaded!");
       // Play success sound safely
-      try { new Audio("/success.wav").play(); } catch { }
+      try {
+        new Audio("/success.wav").play();
+      } catch {}
     } catch (error: any) {
       toast.error(
-        error.response?.data?.message || "Failed to get suggestions. Please try again."
+        error.response?.data?.message ||
+          "Failed to get suggestions. Please try again.",
       );
     } finally {
       setLoading(false);
@@ -101,7 +106,8 @@ function AddNewSessionDialog() {
           {!suggestedDoctors && (
             <>
               <p className="text-sm text-neutral-500">
-                Describe your symptoms or health concern so we can suggest the right specialist.
+                Describe your symptoms or health concern so we can suggest the
+                right specialist.
               </p>
               <Textarea
                 placeholder="e.g. I have been experiencing chest pain, shortness of breath, and dizziness for the past 2 days..."
@@ -117,9 +123,14 @@ function AddNewSessionDialog() {
                   className="gap-2 cursor-pointer"
                 >
                   {loading ? (
-                    <><Loader2 size={16} className="animate-spin" /> Finding Doctors…</>
+                    <>
+                      <Loader2 size={16} className="animate-spin" /> Finding
+                      Doctors…
+                    </>
                   ) : (
-                    <><IconArrowRight size={16} /> Find Doctors</>
+                    <>
+                      <IconArrowRight size={16} /> Find Doctors
+                    </>
                   )}
                 </Button>
               </div>
@@ -146,7 +157,10 @@ function AddNewSessionDialog() {
               <div className="flex justify-between mt-4">
                 <Button
                   variant="outline"
-                  onClick={() => { setSuggestedDoctors(undefined); setSelectedDoctor(undefined); }}
+                  onClick={() => {
+                    setSuggestedDoctors(undefined);
+                    setSelectedDoctor(undefined);
+                  }}
                   disabled={loading}
                 >
                   ← Back
@@ -157,9 +171,13 @@ function AddNewSessionDialog() {
                   className="gap-2 cursor-pointer"
                 >
                   {loading ? (
-                    <><Loader2 size={16} className="animate-spin" /> Starting…</>
+                    <>
+                      <Loader2 size={16} className="animate-spin" /> Starting…
+                    </>
                   ) : (
-                    <>Start Consultation <IconArrowRight size={16} /></>
+                    <>
+                      Start Consultation <IconArrowRight size={16} />
+                    </>
                   )}
                 </Button>
               </div>

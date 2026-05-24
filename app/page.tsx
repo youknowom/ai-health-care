@@ -39,7 +39,10 @@ export default function Home() {
       <Navbar />
 
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden" style={{ minHeight: "85vh" }}>
+      <section
+        className="relative overflow-hidden"
+        style={{ minHeight: "85vh" }}
+      >
         <div className="absolute inset-0 -z-0">
           <div
             className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[800px] h-[500px] rounded-full opacity-70"
@@ -89,7 +92,11 @@ export default function Home() {
 
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0, transition: { duration: 0.65, delay: 0.1 } }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.65, delay: 0.1 },
+            }}
             className="text-[2.4rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[6.5rem] font-semibold text-neutral-950 max-w-4xl mx-auto leading-[1.05] tracking-[-0.03em]"
           >
             AI for all,
@@ -99,7 +106,11 @@ export default function Home() {
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.6, delay: 0.2 },
+            }}
             className="mt-5 sm:mt-7 text-base sm:text-lg md:text-xl text-neutral-500 max-w-xl mx-auto leading-relaxed font-normal px-2"
           >
             Built on frontier-class AI. Powered by voice, vision, and context.
@@ -109,7 +120,11 @@ export default function Home() {
 
           <motion.div
             initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0, transition: { duration: 0.55, delay: 0.3 } }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.55, delay: 0.3 },
+            }}
             className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto px-4 sm:px-0"
           >
             <Link href="/dashboard" className="w-full sm:w-auto">
@@ -151,20 +166,25 @@ export default function Home() {
             Built for patients, doctors &amp; hospitals
           </p>
           <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-12 opacity-40">
-            {["Apollo", "Fortis", "AIIMS", "Max Health", "Narayana"].map((name) => (
-              <span
-                key={name}
-                className="text-lg sm:text-xl font-bold text-neutral-700 tracking-tight"
-              >
-                {name}
-              </span>
-            ))}
+            {["Apollo", "Fortis", "AIIMS", "Max Health", "Narayana"].map(
+              (name) => (
+                <span
+                  key={name}
+                  className="text-lg sm:text-xl font-bold text-neutral-700 tracking-tight"
+                >
+                  {name}
+                </span>
+              ),
+            )}
           </div>
         </div>
       </section>
 
       {/* ── SECTION HEADING ── */}
-      <section className="pt-16 sm:pt-24 pb-6 sm:pb-8" style={{ background: "#dcfce7" }}>
+      <section
+        className="pt-16 sm:pt-24 pb-6 sm:pb-8"
+        style={{ background: "#dcfce7" }}
+      >
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400 mb-4 sm:mb-5">
             For Patients | Doctors | Hospitals
@@ -176,7 +196,10 @@ export default function Home() {
       </section>
 
       {/* ── FEATURE CARDS ── */}
-      <section className="pb-8 sm:pb-10 pt-8 sm:pt-10" style={{ background: "#dcfce7" }}>
+      <section
+        className="pb-8 sm:pb-10 pt-8 sm:pt-10"
+        style={{ background: "#dcfce7" }}
+      >
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl space-y-5 sm:space-y-6">
           <FeatureCard
             graphic={<AIDoctorGraphic />}
@@ -184,9 +207,18 @@ export default function Home() {
             title="AI Doctor"
             description="Talk to your AI doctor any time. Describe symptoms by voice or text and receive instant, evidence-based medical guidance powered by BioBERT and frontier language models."
             bullets={[
-              { label: "Voice consultation", desc: "Real-time speech recognition" },
-              { label: "Smart triage", desc: "98% symptom extraction accuracy" },
-              { label: "10 specialists", desc: "From cardiology to dermatology" },
+              {
+                label: "Voice consultation",
+                desc: "Real-time speech recognition",
+              },
+              {
+                label: "Smart triage",
+                desc: "98% symptom extraction accuracy",
+              },
+              {
+                label: "10 specialists",
+                desc: "From cardiology to dermatology",
+              },
             ]}
             cta="Start consultation"
             href="/dashboard"
@@ -237,7 +269,8 @@ export default function Home() {
               intelligent care.
             </h2>
             <p className="text-neutral-500 text-base sm:text-lg mb-8 sm:mb-12 max-w-lg mx-auto px-2">
-              Join patients and doctors already using MediPulse for smarter, faster healthcare.
+              Join patients and doctors already using MediPulse for smarter,
+              faster healthcare.
             </p>
             <Link href="/dashboard">
               <button
@@ -265,14 +298,17 @@ export default function Home() {
             medipulse
           </span>
           <p className="text-xs text-neutral-400 text-center order-last sm:order-none">
-            © {new Date().getFullYear()} MediPulse. AI guidance only not a substitute for
-            professional medical advice.
+            © {new Date().getFullYear()} MediPulse. AI guidance only not a
+            substitute for professional medical advice.
           </p>
           <div className="flex gap-5 text-sm text-neutral-400">
-            <Link href="#" className="hover:text-neutral-700 transition-colors">Privacy</Link>
-            <Link href="#" className="hover:text-neutral-700 transition-colors">Terms</Link>
+            <Link href="#" className="hover:text-neutral-700 transition-colors">
+              Privacy
+            </Link>
+            <Link href="#" className="hover:text-neutral-700 transition-colors">
+              Terms
+            </Link>
             <span className="text-neutral-500">v1.0</span>
-
           </div>
         </div>
       </footer>
@@ -400,7 +436,11 @@ function Navbar() {
               className="w-10 h-10 flex items-center justify-center rounded-xl text-neutral-700 hover:bg-neutral-100/80 transition-colors"
               aria-label="Toggle menu"
             >
-              {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {menuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
             </button>
           </div>
         </div>
@@ -436,7 +476,10 @@ function Navbar() {
                           Sign in
                         </button>
                       </Link>
-                      <Link href="/dashboard" onClick={() => setMenuOpen(false)}>
+                      <Link
+                        href="/dashboard"
+                        onClick={() => setMenuOpen(false)}
+                      >
                         <button
                           className="w-full py-2.5 rounded-full text-white text-sm font-semibold hover:opacity-90 transition-opacity"
                           style={{ background: "#111" }}
@@ -498,10 +541,14 @@ function FeatureCard({
         boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 0 0 1px rgba(22,163,74,0.12)",
       }}
     >
-      <div className={`min-h-[240px] sm:min-h-[320px] md:min-h-[400px] ${reverse ? "md:order-2" : ""}`}>
+      <div
+        className={`min-h-[240px] sm:min-h-[320px] md:min-h-[400px] ${reverse ? "md:order-2" : ""}`}
+      >
         {graphic}
       </div>
-      <div className={`flex flex-col justify-center p-7 sm:p-10 md:p-14 ${reverse ? "md:order-1" : ""}`}>
+      <div
+        className={`flex flex-col justify-center p-7 sm:p-10 md:p-14 ${reverse ? "md:order-1" : ""}`}
+      >
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-neutral-400 mb-3 sm:mb-4">
           {eyebrow}
         </p>
@@ -514,9 +561,13 @@ function FeatureCard({
         <ul className="space-y-3 sm:space-y-4 mb-7 sm:mb-10">
           {bullets.map((b) => (
             <li key={b.label} className="flex items-start gap-3">
-              <span className="mt-1 text-green-500 text-base sm:text-lg flex-shrink-0">✦</span>
+              <span className="mt-1 text-green-500 text-base sm:text-lg flex-shrink-0">
+                ✦
+              </span>
               <div>
-                <span className="font-semibold text-neutral-800 text-sm">{b.label}</span>
+                <span className="font-semibold text-neutral-800 text-sm">
+                  {b.label}
+                </span>
                 <span className="text-neutral-500 text-sm"> — {b.desc}</span>
               </div>
             </li>
@@ -527,7 +578,8 @@ function FeatureCard({
             className="self-start inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white text-sm font-semibold transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
             style={{
               background: "linear-gradient(135deg, #16a34a 0%, #15803d 100%)",
-              boxShadow: "0 2px 10px rgba(22,163,74,0.35), inset 0 0 0 1px rgba(255,255,255,0.15)",
+              boxShadow:
+                "0 2px 10px rgba(22,163,74,0.35), inset 0 0 0 1px rgba(255,255,255,0.15)",
             }}
           >
             {cta} <ArrowRight className="w-4 h-4" />
@@ -545,13 +597,17 @@ function AIDoctorGraphic() {
   return (
     <div
       className="h-full min-h-[320px] flex items-center justify-center relative overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #c4b5fd 0%, #818cf8 40%, #6366f1 100%)" }}
+      style={{
+        background:
+          "linear-gradient(135deg, #c4b5fd 0%, #818cf8 40%, #6366f1 100%)",
+      }}
     >
       <div className="absolute inset-0 flex items-end justify-center pb-6">
         <div
           className="w-48 h-48 rounded-full"
           style={{
-            background: "radial-gradient(ellipse, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.05) 70%)",
+            background:
+              "radial-gradient(ellipse, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.05) 70%)",
             transform: "translateY(40%)",
           }}
         />
@@ -560,7 +616,9 @@ function AIDoctorGraphic() {
         className="absolute top-8 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full border-2 border-white/30"
         style={{ boxShadow: "0 0 0 12px rgba(255,255,255,0.1)" }}
       />
-      <div className="relative z-10 text-white/20 text-[8rem] font-bold select-none">+</div>
+      <div className="relative z-10 text-white/20 text-[8rem] font-bold select-none">
+        +
+      </div>
     </div>
   );
 }
@@ -569,19 +627,27 @@ function NearMeGraphic() {
   return (
     <div
       className="h-full min-h-[320px] flex items-center justify-center relative overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #67e8f9 0%, #38bdf8 50%, #0ea5e9 100%)" }}
+      style={{
+        background:
+          "linear-gradient(135deg, #67e8f9 0%, #38bdf8 50%, #0ea5e9 100%)",
+      }}
     >
       <div className="absolute inset-0 flex items-end justify-center">
         <div
           className="w-64 h-40 rounded-t-full"
-          style={{ background: "rgba(255,255,255,0.12)", transform: "translateY(20%)" }}
+          style={{
+            background: "rgba(255,255,255,0.12)",
+            transform: "translateY(20%)",
+          }}
         />
       </div>
       <div className="absolute top-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
         <div className="w-6 h-6 rounded-full bg-white/80" />
         <div className="w-1 h-24 bg-white/20" />
       </div>
-      <div className="relative z-10 text-white/15 text-[8rem] font-bold select-none">◎</div>
+      <div className="relative z-10 text-white/15 text-[8rem] font-bold select-none">
+        ◎
+      </div>
     </div>
   );
 }
@@ -590,22 +656,34 @@ function ScanReportsGraphic() {
   return (
     <div
       className="h-full min-h-[320px] flex items-center justify-center relative overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #6ee7b7 0%, #34d399 40%, #059669 100%)" }}
+      style={{
+        background:
+          "linear-gradient(135deg, #6ee7b7 0%, #34d399 40%, #059669 100%)",
+      }}
     >
       <div className="absolute inset-0 flex items-center justify-center opacity-10">
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
             className="absolute h-px bg-white"
-            style={{ width: "80%", top: `${20 + i * 15}%`, opacity: 1 - i * 0.15 }}
+            style={{
+              width: "80%",
+              top: `${20 + i * 15}%`,
+              opacity: 1 - i * 0.15,
+            }}
           />
         ))}
       </div>
       <div
         className="absolute bottom-0 left-0 right-0 h-1/2"
-        style={{ background: "linear-gradient(to top, rgba(255,255,255,0.15), transparent)" }}
+        style={{
+          background:
+            "linear-gradient(to top, rgba(255,255,255,0.15), transparent)",
+        }}
       />
-      <div className="relative z-10 text-white/15 text-[8rem] font-bold select-none">≡</div>
+      <div className="relative z-10 text-white/15 text-[8rem] font-bold select-none">
+        ≡
+      </div>
     </div>
   );
 }

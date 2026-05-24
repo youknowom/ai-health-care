@@ -32,7 +32,7 @@ function HistoryTable({ historyList }: Props) {
 
   // Sort by createdOn descending
   const sortedHistory = [...historyArray].sort(
-    (a, b) => new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime()
+    (a, b) => new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime(),
   );
 
   // Show only 5 initially
@@ -49,14 +49,19 @@ function HistoryTable({ historyList }: Props) {
       ) : (
         <>
           {/* Responsive scroll wrapper */}
-          <div className="w-full overflow-x-auto -mx-0 rounded-xl" style={{ WebkitOverflowScrolling: "touch" }}>
+          <div
+            className="w-full overflow-x-auto -mx-0 rounded-xl"
+            style={{ WebkitOverflowScrolling: "touch" }}
+          >
             <Table className="min-w-[520px]">
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[180px] sm:w-[300px]">
                     AI Medical Specialist
                   </TableHead>
-                  <TableHead className="hidden sm:table-cell">Description</TableHead>
+                  <TableHead className="hidden sm:table-cell">
+                    Description
+                  </TableHead>
                   <TableHead>Date</TableHead>
                   <TableHead className="text-right">Action</TableHead>
                 </TableRow>
@@ -77,7 +82,9 @@ function HistoryTable({ historyList }: Props) {
                       <TableCell className="font-medium text-sm">
                         {doctor?.specialist ?? "N/A"}
                       </TableCell>
-                      <TableCell className="hidden sm:table-cell text-sm max-w-[200px] truncate">{record.notes}</TableCell>
+                      <TableCell className="hidden sm:table-cell text-sm max-w-[200px] truncate">
+                        {record.notes}
+                      </TableCell>
                       <TableCell className="text-xs sm:text-sm whitespace-nowrap">
                         {moment(new Date(record.createdOn)).fromNow()}
                       </TableCell>

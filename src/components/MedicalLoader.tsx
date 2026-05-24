@@ -37,7 +37,6 @@ export default function MedicalLoader() {
 
       {/* ── Center card ── */}
       <div className="medical-loader-card">
-
         {/* ── Pulsing cross icon ── */}
         <div className="medical-cross-wrap">
           <svg
@@ -129,10 +128,7 @@ export default function MedicalLoader() {
 
         {/* ── Progress bar ── */}
         <div className="progress-track">
-          <div
-            className="progress-fill"
-            style={{ width: `${progress}%` }}
-          />
+          <div className="progress-fill" style={{ width: `${progress}%` }} />
         </div>
 
         {/* ── Status label ── */}
