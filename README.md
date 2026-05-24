@@ -1,33 +1,21 @@
-🏥 AI Medical Agent
+# AI Doctor
 
-An AI-powered Diagnostic Assistant built with Next.js.
-This project helps simulate conversations between patients and a virtual medical assistant. It collects symptoms, provides possible insights, and guides toward further medical attention.
+<img src="./public/ai-doctor-banner.png" alt="AI Doctor" style="width:100%;border-radius:12px;box-shadow:0 2px 16px #0003;margin-bottom:24px;"/>
 
-⚠️ Disclaimer: This tool is for educational and experimental purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider for medical concerns.
+## 🏥 Project Summary
 
-🚀 Features
+**AI Doctor** is a next-generation AI-powered healthcare assistant platform designed to provide users with instant medical insights, document analysis, and doctor discovery. Leveraging advanced AI models, this platform enables users to scan medical reports (OCR), analyze X-rays, extract symptoms using NLP, and connect with nearby healthcare professionals—all in a seamless, privacy-focused web experience.
 
-🤖 AI-driven symptom-based conversation
+By integrating state-of-the-art language models and medical data processing, AI Doctor offers:
 
-📋 Step-by-step questioning to narrow down conditions
+- **Medical Report Scanning (OCR):** Upload and analyze medical documents for structured data extraction.
+- **Symptom Extraction (NLP):** Enter symptoms in natural language and receive AI-driven analysis and suggestions.
+- **X-ray Analysis:** Upload X-ray images for instant AI-powered insights.
+- **Doctor Finder:** Discover and connect with nearby doctors using geo-location and smart recommendations.
+- **Session-based Medical Chat:** Secure, context-aware conversations for ongoing medical advice.
 
-🧠 Context-aware responses
+Built with Next.js, TypeScript, Drizzle ORM, and OpenAI, AI Doctor is focused on speed, accuracy, and a user-friendly interface. The platform empowers individuals to make informed health decisions and streamlines access to medical expertise.
 
-🌐 Built on Next.js + TypeScript
+---
 
-⚡ Lightweight and extendable codebase
-
-🛠️ Tech Stack
-
-Next.js
- – Frontend framework
-
-TypeScript
- – Type safety
-
-React Context API
- – State management
-
-[OpenAI API / LLMs] – For medical dialog generation
-
-Live nearby doctor results use SerpApi Google Maps. Set `SERPAPI_API_KEY` in your environment to enable the near-me dashboard.
+> **Disclaimer:** This tool is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider for medical concerns.
