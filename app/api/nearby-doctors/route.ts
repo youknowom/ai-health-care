@@ -4,6 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 const cache = new Map<string, { data: any; ts: number }>();
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes
 
+const SERPAPI_ENDPOINT = "https://serpapi.com/search.json";
+
 // ── Haversine distance in km ──────────────────────────────────────────────────
 function haversine(lat1: number, lng1: number, lat2: number, lng2: number): number {
     const R = 6371;
@@ -15,13 +17,6 @@ function haversine(lat1: number, lng1: number, lat2: number, lng2: number): numb
         Math.cos((lat2 * Math.PI) / 180) *
         Math.sin(dLng / 2) ** 2;
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-}
-
-// ── Avatar initials ───────────────────────────────────────────────────────────
-function getInitials(name: string): string {
-    const words = name.trim().split(/\s+/);
-    if (words.length >= 2) return (words[0][0] + words[words.length - 1][0]).toUpperCase();
-    return name.slice(0, 2).toUpperCase();
 }
 
 // ── Deterministic helpers ────────────────────────────────────────────────────
@@ -36,18 +31,53 @@ const GRADIENTS = [
     "linear-gradient(135deg,#a5f3fc 0%,#0891b2 100%)",
 ];
 const TAG_BGS = ["#ede9fe", "#fee2e2", "#ffedd5", "#dcfce7", "#f3e8ff", "#e0f2fe", "#fef3c7", "#cffafe"];
-const SPECIALTIES = [
-    "General Practice", "Cardiology", "Dermatology", "Neurology",
-    "Orthopedics", "Pediatrics", "Gynecology", "Internal Medicine",
-];
 const RATINGS = [4.2, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5.0];
-const SLOTS = [
-    "Today, 10:00 AM", "Today, 12:30 PM", "Today, 3:00 PM",
-    "Today, 5:30 PM", "Tomorrow, 9:00 AM", "Tomorrow, 11:00 AM",
-];
 
 function seededPick<T>(arr: T[], seed: number): T {
     return arr[Math.abs(seed) % arr.length];
+}
+
+function getSpecialty(title: string, types: string[] = []): string {
+    const haystack = `${title} ${types.join(" ")}`.toLowerCase();
+
+    if (haystack.includes("cardio")) return "Cardiology";
+    if (haystack.includes("dermat")) return "Dermatology";
+    if (haystack.includes("neuro")) return "Neurology";
+    if (haystack.includes("ortho")) return "Orthopedics";
+    if (haystack.includes("pedia") || haystack.includes("child")) return "Pediatrics";
+    if (haystack.includes("gyne") || haystack.includes("women")) return "Gynecology";
+    if (haystack.includes("eye") || haystack.includes("ophthalm")) return "Ophthalmology";
+    if (haystack.includes("dent")) return "Dentistry";
+    if (haystack.includes("hospital")) return "Multi-Speciality Hospital";
+    if (haystack.includes("clinic")) return "General Practice";
+
+    return "General Practice";
+}
+
+function getAvatarInitials(name: string): string {
+    const words = name.trim().split(/\s+/);
+    if (words.length >= 2) return (words[0][0] + words[words.length - 1][0]).toUpperCase();
+    return name.slice(0, 2).toUpperCase();
+}
+
+function buildMapsUrl(lat: number, lng: number, query: string): string {
+    const ll = `@${lat},${lng},14z`;
+    const params = new URLSearchParams({
+        engine: "google_maps",
+        type: "search",
+        q: query,
+        ll,
+        google_domain: "google.com",
+        hl: "en",
+    });
+
+    const apiKey = process.env.SERPAPI_API_KEY ?? process.env.SERPAPI_KEY;
+    if (!apiKey) {
+        throw new Error("Missing SERPAPI_API_KEY environment variable");
+    }
+
+    params.set("api_key", apiKey);
+    return `${SERPAPI_ENDPOINT}?${params.toString()}`;
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────────
@@ -70,101 +100,70 @@ export async function GET(req: NextRequest) {
         });
     }
 
-    // ── Overpass QL query ─────────────────────────────────────────────────────
-    const query = `
-    [out:json][timeout:25];
-    (
-      node["amenity"="hospital"](around:${radius},${lat},${lng});
-      node["amenity"="clinic"](around:${radius},${lat},${lng});
-      node["healthcare"="doctor"](around:${radius},${lat},${lng});
-      node["amenity"="doctors"](around:${radius},${lat},${lng});
-      way["amenity"="hospital"](around:${radius},${lat},${lng});
-      way["amenity"="clinic"](around:${radius},${lat},${lng});
-    );
-    out center 20;
-  `;
-
     try {
-        const res = await fetch("https://overpass-api.de/api/interpreter", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: `data=${encodeURIComponent(query)}`,
+        const res = await fetch(buildMapsUrl(lat, lng, "doctor"), {
             signal: AbortSignal.timeout(20_000),
         });
 
-        if (!res.ok) throw new Error(`Overpass responded with ${res.status}`);
+        if (!res.ok) throw new Error(`SerpApi responded with ${res.status}`);
 
         const data = await res.json();
-        const elements: any[] = data.elements ?? [];
+        const localResults: any[] = Array.isArray(data.local_results) ? data.local_results : [];
 
-        const doctors = elements
-            .filter((el) => {
-                const elLat = el.lat ?? el.center?.lat;
-                const elLng = el.lon ?? el.center?.lon;
-                return el.tags?.name && elLat != null && elLng != null;
-            })
+        const doctors = localResults
+            .filter((place) => place?.title && place?.gps_coordinates?.latitude != null && place?.gps_coordinates?.longitude != null)
             .slice(0, 20)
-            .map((el, i) => {
-                const elLat: number = el.lat ?? el.center.lat;
-                const elLng: number = el.lon ?? el.center.lon;
-                const distKm = Math.round(haversine(lat, lng, elLat, elLng) * 10) / 10;
-
-                const tags = el.tags ?? {};
-                const name = tags.name ?? "Nearby Medical Centre";
-                const seed = typeof el.id === "number" ? el.id : i + 1;
-
-                const specialty =
-                    tags["healthcare:speciality"] ??
-                    tags["healthcare_speciality"] ??
-                    (tags.amenity === "hospital" ? "Multi-Speciality Hospital" : seededPick(SPECIALTIES, seed));
-
-                const address = [
-                    tags["addr:street"],
-                    tags["addr:suburb"] ?? tags["addr:city"],
-                ]
-                    .filter(Boolean)
-                    .join(", ") || "Local Area";
-
-                const available = seed % 3 !== 0;
-                const rating = seededPick(RATINGS, seed + 3);
-                const reviews = ((seed * 37) % 200) + 10;
+            .map((place, index) => {
+                const placeLat = Number(place.gps_coordinates.latitude);
+                const placeLng = Number(place.gps_coordinates.longitude);
+                const distKm = Math.round(haversine(lat, lng, placeLat, placeLng) * 10) / 10;
+                const seed = place.data_cid ?? place.place_id ?? place.data_id ?? index + 1;
+                const typeList: string[] = Array.isArray(place.types) ? place.types : [];
+                const title = place.title ?? "Nearby Medical Centre";
+                const openState = typeof place.open_state === "string" ? place.open_state : place.hours;
+                const rating = typeof place.rating === "number" ? place.rating : seededPick(RATINGS, index + 3);
+                const reviews = typeof place.reviews === "number" ? place.reviews : ((String(seed).length * 37) % 200) + 10;
 
                 return {
-                    id: el.id,
-                    name,
-                    specialty,
+                    id: place.place_id ?? place.data_id ?? seed,
+                    name: title,
+                    specialty: getSpecialty(title, typeList),
                     rating,
                     reviews,
                     distance: `${distKm} km`,
                     distanceNum: distKm,
-                    address,
-                    hospital: tags.operator ?? name,
-                    available,
-                    nextSlot: available ? seededPick(SLOTS, seed) : seededPick(SLOTS.slice(4), seed),
-                    experience: "10+ yrs",
-                    fee: "Varies",
-                    avatar: getInitials(name),
-                    avatarBg: seededPick(GRADIENTS, seed),
-                    tagBg: seededPick(TAG_BGS, seed),
+                    address: place.address ?? "Nearby area",
+                    hospital: title,
+                    available: typeof openState === "string" ? openState.toLowerCase().includes("open") : true,
+                    nextSlot: typeof openState === "string" && openState.toLowerCase().includes("open")
+                        ? "Open now"
+                        : place.hours ?? "Check hours",
+                    experience: "N/A",
+                    fee: "Call for pricing",
+                    avatar: getAvatarInitials(title),
+                    avatarBg: seededPick(GRADIENTS, index),
+                    tagBg: seededPick(TAG_BGS, index),
                     verified: true,
-                    languages: ["English", "Hindi"],
-                    // ✅ Include real coordinates for map markers + Directions link
-                    lat: elLat,
-                    lng: elLng,
+                    languages: ["English"],
+                    phone: place.phone,
+                    website: place.website,
+                    openingHours: place.hours ?? openState,
+                    lat: placeLat,
+                    lng: placeLng,
                 };
             })
             .sort((a, b) => a.distanceNum - b.distanceNum);
 
-        const result = { doctors, total: doctors.length, source: "osm" };
+        const result = { doctors, total: doctors.length, source: "serpapi-google-maps" };
 
         // ── Store in cache ────────────────────────────────────────────────────
         cache.set(cacheKey, { data: result, ts: Date.now() });
 
         return NextResponse.json(result);
     } catch (err: any) {
-        console.error("Overpass API error:", err?.message ?? err);
+        console.error("SerpApi Google Maps error:", err?.message ?? err);
         return NextResponse.json(
-            { error: "Failed to fetch nearby doctors from OpenStreetMap", details: err?.message },
+            { error: "Failed to fetch nearby doctors from SerpApi Google Maps", details: err?.message },
             { status: 500 }
         );
     }

@@ -34,7 +34,7 @@ const DoctorMap = dynamic(() => import("@/components/DoctorMap"), {
     ),
 });
 
-// Extend MapDoctor with optional real OSM fields your API returns
+// Extend MapDoctor with optional real fields your API returns
 type Doctor = MapDoctor & {
     phone?: string;
     website?: string;
@@ -43,12 +43,12 @@ type Doctor = MapDoctor & {
 
 // ─── Fallback mock data (used when API is unreachable) ────────────────────────
 const MOCK_DOCTORS: Doctor[] = [
-    { id: 1, name: "Dr. Anjali Sharma", specialty: "General Practice", rating: 4.9, reviews: 312, distance: "0.4 km", distanceNum: 0.4, address: "Sector 18, Noida", hospital: "Apollo Clinic", available: true, nextSlot: "Today, 11:30 AM", experience: "14 yrs", fee: "₹500", avatar: "AS", avatarBg: "linear-gradient(135deg,#c4b5fd,#6366f1)", tagBg: "#ede9fe", verified: true, languages: ["Hindi", "English"] },
-    { id: 2, name: "Dr. Rohan Mehta", specialty: "Cardiology", rating: 4.8, reviews: 189, distance: "0.9 km", distanceNum: 0.9, address: "Vasant Kunj, Delhi", hospital: "Fortis Heart Centre", available: true, nextSlot: "Today, 2:00 PM", experience: "20 yrs", fee: "₹1,200", avatar: "RM", avatarBg: "linear-gradient(135deg,#fca5a5,#dc2626)", tagBg: "#fee2e2", verified: true, languages: ["English", "Marathi"] },
-    { id: 3, name: "Dr. Priya Nair", specialty: "Dermatology", rating: 4.7, reviews: 254, distance: "1.2 km", distanceNum: 1.2, address: "Green Park, Delhi", hospital: "Max Skin Clinic", available: false, nextSlot: "Tomorrow, 10:00 AM", experience: "10 yrs", fee: "₹800", avatar: "PN", avatarBg: "linear-gradient(135deg,#fdba74,#ea580c)", tagBg: "#ffedd5", verified: true, languages: ["Malayalam", "English", "Hindi"] },
-    { id: 4, name: "Dr. Suresh Iyer", specialty: "Neurology", rating: 4.9, reviews: 421, distance: "1.5 km", distanceNum: 1.5, address: "Ansari Nagar, Delhi", hospital: "AIIMS OPD Block", available: true, nextSlot: "Today, 4:30 PM", experience: "25 yrs", fee: "₹1,500", avatar: "SI", avatarBg: "linear-gradient(135deg,#6ee7b7,#059669)", tagBg: "#dcfce7", verified: true, languages: ["Tamil", "English"] },
-    { id: 5, name: "Dr. Kavitha Reddy", specialty: "Gynecology", rating: 4.6, reviews: 178, distance: "1.8 km", distanceNum: 1.8, address: "HSR Layout, Bangalore", hospital: "Narayana Women's Clinic", available: true, nextSlot: "Today, 6:00 PM", experience: "12 yrs", fee: "₹700", avatar: "KR", avatarBg: "linear-gradient(135deg,#d8b4fe,#9333ea)", tagBg: "#f3e8ff", verified: false, languages: ["Telugu", "Kannada", "English"] },
-    { id: 6, name: "Dr. Aditya Singh", specialty: "Orthopedics", rating: 4.8, reviews: 305, distance: "2.1 km", distanceNum: 2.1, address: "Koramangala, Bangalore", hospital: "Bone & Joint Clinic", available: false, nextSlot: "Tomorrow, 9:00 AM", experience: "18 yrs", fee: "₹1,000", avatar: "AS", avatarBg: "linear-gradient(135deg,#67e8f9,#0ea5e9)", tagBg: "#e0f2fe", verified: true, languages: ["Hindi", "English"] },
+    { id: 1, name: "Dr. Rajesh pawar", specialty: "General Practice", rating: 4.9, reviews: 312, distance: "0.4 km", distanceNum: 0.4, address: "Nashik", hospital: "Apollo Clinic", available: true, nextSlot: "Today, 11:30 AM", experience: "14 yrs", fee: "₹500", avatar: "AS", avatarBg: "linear-gradient(135deg,#c4b5fd,#6366f1)", tagBg: "#ede9fe", verified: true, languages: ["Hindi", "English"] },
+    { id: 2, name: "Dr. Rohan Mehta", specialty: "Cardiology", rating: 4.8, reviews: 189, distance: "0.9 km", distanceNum: 0.9, address: "Vasant,Nashik", hospital: "Fortis Heart Centre", available: true, nextSlot: "Today, 2:00 PM", experience: "20 yrs", fee: "₹1,200", avatar: "RM", avatarBg: "linear-gradient(135deg,#fca5a5,#dc2626)", tagBg: "#fee2e2", verified: true, languages: ["English", "Marathi"] },
+    { id: 3, name: "Dr. Priya patil", specialty: "Dermatology", rating: 4.7, reviews: 254, distance: "1.2 km", distanceNum: 1.2, address: "Green Park,Nashik", hospital: "Max Skin Clinic", available: false, nextSlot: "Tomorrow, 10:00 AM", experience: "10 yrs", fee: "₹800", avatar: "PN", avatarBg: "linear-gradient(135deg,#fdba74,#ea580c)", tagBg: "#ffedd5", verified: true, languages: ["Malayalam", "English", "Hindi"] },
+    { id: 4, name: "Dr. Suresh pawar", specialty: "Neurology", rating: 4.9, reviews: 421, distance: "1.5 km", distanceNum: 1.5, address: "Ansari Nagar, Nashik", hospital: "AIIMS OPD Block", available: true, nextSlot: "Today, 4:30 PM", experience: "25 yrs", fee: "₹1,500", avatar: "SI", avatarBg: "linear-gradient(135deg,#6ee7b7,#059669)", tagBg: "#dcfce7", verified: true, languages: ["Tamil", "English"] },
+    { id: 5, name: "Dr. Kavitha Reddy", specialty: "Gynecology", rating: 4.6, reviews: 178, distance: "1.8 km", distanceNum: 1.8, address: "HSR Layout, Nashik", hospital: "Narayana Women's Clinic", available: true, nextSlot: "Today, 6:00 PM", experience: "12 yrs", fee: "₹700", avatar: "KR", avatarBg: "linear-gradient(135deg,#d8b4fe,#9333ea)", tagBg: "#f3e8ff", verified: false, languages: ["Telugu", "Kannada", "English"] },
+    { id: 6, name: "Dr. Aditya Singh", specialty: "Orthopedics", rating: 4.8, reviews: 305, distance: "2.1 km", distanceNum: 2.1, address: "Koramangala, Nashik", hospital: "Bone & Joint Clinic", available: false, nextSlot: "Tomorrow, 9:00 AM", experience: "18 yrs", fee: "₹1,000", avatar: "AS", avatarBg: "linear-gradient(135deg,#67e8f9,#0ea5e9)", tagBg: "#e0f2fe", verified: true, languages: ["Hindi", "English"] },
 ];
 
 // ─── Specialty icon map ───────────────────────────────────────────────────────
@@ -126,7 +126,7 @@ export default function NearMePage() {
             } else {
                 setDoctors(MOCK_DOCTORS);
                 setLiveData(false);
-                setError("No clinics found nearby — showing sample data.");
+                setError("No doctors found nearby — showing sample data.");
             }
         } catch (err: any) {
             console.error("[NearMe] fetch error:", err);
@@ -200,7 +200,7 @@ export default function NearMePage() {
                                 : { background: "#f3f4f6", color: "#9ca3af" }}>
                             {liveData ? <Wifi className="w-3 h-3" /> : <WifiOff className="w-3 h-3" />}
                             {liveData
-                                ? (cacheHit ? "Live · Cached (2 min)" : "Live · OpenStreetMap")
+                                ? (cacheHit ? "Live · Cached (2 min)" : "Live · SerpApi Google Maps")
                                 : "Sample Data"}
                         </div>
 
@@ -392,12 +392,12 @@ export default function NearMePage() {
                                                 Website
                                             </a>
                                         ) : (
-                                            <a href={`https://www.openstreetmap.org/?mlat=${selected.lat}&mlon=${selected.lng}#map=17/${selected.lat}/${selected.lng}`}
+                                            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${selected.name} ${selected.address}`)}`}
                                                 target="_blank" rel="noopener noreferrer"
                                                 className="px-5 py-3 rounded-2xl text-sm font-semibold flex items-center gap-2 transition-all hover:opacity-80"
                                                 style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.7)" }}>
                                                 <MapPin className="w-4 h-4" />
-                                                OSM
+                                                Google Maps
                                             </a>
                                         )}
                                     </div>
@@ -518,7 +518,7 @@ export default function NearMePage() {
                             {loading ? "Searching…" : `${filtered.length} result${filtered.length !== 1 ? "s" : ""}`}
                         </p>
                         <p className="text-xs font-semibold" style={{ color: liveData ? "#2563eb" : "#9ca3af" }}>
-                            {liveData ? (cacheHit ? "● Cached" : "● Live · OSM") : "● Sample"}
+                            {liveData ? (cacheHit ? "● Cached" : "● Live · SerpApi") : "● Sample"}
                         </p>
                     </div>
 

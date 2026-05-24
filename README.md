@@ -29,3 +29,5 @@ React Context API
  – State management
 
 [OpenAI API / LLMs] – For medical dialog generation
+
+Live nearby doctor results use SerpApi Google Maps. Set `SERPAPI_API_KEY` in your environment to enable the near-me dashboard.
