@@ -1,3 +1,4 @@
+//ai health doctor
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
